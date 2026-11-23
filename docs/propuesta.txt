@@ -1,0 +1,40 @@
+PROGRAMACIÓN IV - 2026
+Propuesta de sistema: integrantes y temática
+
+INTEGRANTES
+- Saenz, Federico
+- Ansa, Santiago
+- Almarante, Manuel
+- Vinzón, Eric Alan
+
+NOMBRE DEL SISTEMA
+Herramientas Ya - Sistema de gestión de alquiler de herramientas entre vecinos
+
+TEMÁTICA Y DESCRIPCIÓN
+
+Problema que resuelve:
+Muchas personas compran herramientas y equipos que usan pocas veces al año (taladros, escaleras, hidrolavadoras, carpas, etc.), mientras que otras necesitan ese mismo objeto por unos días y no tienen dónde conseguirlo sin comprarlo. "Herramientas Ya" permite que los dueños publiquen sus herramientas para alquilarlas por día y obtengan un ingreso, y que quien las necesite las alquile a menor costo que comprarlas. El sistema gestiona la publicación, las reservas por fecha, el cálculo del costo del alquiler y el registro de cada operación. El sistema registra montos y depósitos, pero el cobro se acuerda entre las partes por fuera de la plataforma; no incluye pasarela de pagos.
+
+Usuarios:
+- ADMIN: valida a los usuarios registrados, gestiona las categorías y modera publicaciones o usuarios con mal comportamiento.
+- PROPIETARIO: publica sus herramientas con precio por día, acepta o rechaza solicitudes de alquiler y confirma la entrega y la devolución.
+- CLIENTE: busca herramientas disponibles, solicita alquileres por rango de fechas y consulta su historial.
+(Un mismo usuario puede actuar como propietario y como cliente.)
+
+Funcionalidades principales:
+1. Registro e inicio de sesión con roles.
+2. Catálogo de herramientas: nombre, descripción, categoría, estado de conservación, precio por día y monto de depósito en garantía.
+3. Búsqueda y filtrado por categoría, rango de precio, palabra clave y disponibilidad en las fechas buscadas.
+4. Solicitud de alquiler con fecha de inicio y fecha de fin; el sistema calcula el costo total (días x precio por día) más el depósito en garantía.
+5. Ciclo de vida del alquiler: SOLICITADO -> CONFIRMADO -> EN CURSO -> FINALIZADO, con posibilidad de RECHAZADO o CANCELADO. Cada cambio de estado lo realiza el usuario que corresponde (el propietario confirma/rechaza y registra entrega y devolución; el cliente puede cancelar antes de retirar la herramienta).
+6. Control de disponibilidad: el sistema impide reservar una herramienta en un rango de fechas que se superponga con otro alquiler confirmado o en curso.
+7. Recargo por atraso: si la devolución se registra después de la fecha pactada, se calcula un recargo por cada día de demora, descontable del depósito.
+8. Calificaciones: al finalizar el alquiler, propietario y cliente se califican mutuamente; la reputación de cada usuario es visible en sus publicaciones y solicitudes.
+9. Historial de alquileres por herramienta, por propietario (ingresos generados) y por cliente.
+
+Reglas de negocio destacadas:
+- Un usuario no puede alquilar su propia herramienta.
+- No se puede alquilar una herramienta inactiva o fuera de servicio.
+- No se aceptan reservas con fechas superpuestas para la misma herramienta.
+- El costo total se calcula por días completos de alquiler; la cancelación solo está permitida antes de que el alquiler pase a EN CURSO.
+- La devolución tardía genera un recargo diario que se descuenta del depósito en garantía.
