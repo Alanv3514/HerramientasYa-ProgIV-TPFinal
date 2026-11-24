@@ -28,7 +28,7 @@ GitHub Project **Herramientas Ya**: <https://github.com/users/Alanv3514/projects
 ## Reglas
 
 1. **Todo trabajo es una tarjeta.** Si aparece algo nuevo (un bug, una mejora), se crea con `/tarjeta-nueva` o duplicando la plantilla (#2). No se hace "de paso" en otra rama.
-2. **Una tarjeta, una rama, un pull request.** Rama `tipo/NN-descripcion-corta`, que sale de `main` actualizada.
+2. **Una tarjeta, una rama, un pull request.** Rama `tipo/NN-descripcion-corta`, que sale de `main` actualizada. Nadie trabaja sobre `main`: está protegida y solo recibe pull requests (1 aprobación, sin push directo ni force push, ni siquiera del admin). Al integrar, la rama se borra sola.
 3. **Dependencias.** La línea «Depende de» lista los issues que tienen que estar en Hecho antes de empezar. Si una tarjeta queda trabada, lleva la etiqueta `bloqueada` y un comentario con el motivo.
 4. **Revisión cruzada.** Cada PR lo revisa alguien de la otra capa: backend revisa frontend y al revés. Así todos conocen todo el sistema para la defensa.
 5. **CI en verde** para integrar: tests, lint y build. Se integra con squash merge.

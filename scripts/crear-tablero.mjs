@@ -119,13 +119,27 @@ const issues = gh(["issue", "list", "-R", config.repo, "--state", "open", "--lim
 
 const leerCampo = (cuerpo, nombre) => cuerpo.match(new RegExp(`\\*\\*${nombre}:\\*\\*\\s*([^·\\n]+)`))?.[1].trim();
 
+// Asigna al "Responsable sugerido" (o a todos, si dice "todo el equipo").
+function asignarResponsable(issue) {
+    const responsable = leerCampo(issue.body, "Responsable sugerido");
+    const logins = responsable === "todo el equipo" ? Object.values(RESPONSABLES) : [RESPONSABLES[responsable]].filter(Boolean);
+    for (const login of logins) {
+        try {
+            gh(["issue", "edit", String(issue.number), "-R", config.repo, "--add-assignee", login]);
+        } catch {
+            console.warn(`  #${issue.number}: no pude asignar a ${login} (¿aceptó la invitación al repo?)`);
+        }
+    }
+}
+
 for (const issue of issues) {
+    const esGuia = issue.labels.some((l) => l.name === "guía");
     if (yaCargados.has(issue.number)) {
         console.log(`#${issue.number} ya estaba en el tablero`);
+        if (asignar && !esGuia) asignarResponsable(issue);
         continue;
     }
     const item = gh(["project", "item-add", numero, "--owner", config.owner, "--url", issue.url, "--format", "json"], { json: true });
-    const esGuia = issue.labels.some((l) => l.name === "guía");
     const valores = { Status: esGuia ? "📌 Cómo trabajamos" : "Backlog" };
     if (!esGuia) {
         for (const nombre of Object.keys(CAMPOS)) {
@@ -145,16 +159,7 @@ for (const issue of issues) {
     }
     console.log(`#${issue.number} ${issue.title} → ${valores.Status}`);
 
-    if (asignar && !esGuia) {
-        const login = RESPONSABLES[leerCampo(issue.body, "Responsable sugerido")];
-        if (login) {
-            try {
-                gh(["issue", "edit", String(issue.number), "-R", config.repo, "--add-assignee", login]);
-            } catch {
-                console.warn(`  #${issue.number}: no pude asignar a ${login} (¿aceptó la invitación al repo?)`);
-            }
-        }
-    }
+    if (asignar && !esGuia) asignarResponsable(issue);
 }
 
 // 5. Guardar el número del Project para scripts/tablero.mjs.

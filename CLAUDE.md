@@ -51,7 +51,8 @@ Se completan con las tarjetas de estructura (iteración 1). Hasta entonces son l
 
 ## Git
 
-- `main` es la única rama fija y está protegida: no se commitea directo en ella.
+- `main` es la única rama fija y está protegida: nadie (ni el admin) commitea ni pushea directo en ella. Solo recibe pull requests de otras ramas, con 1 aprobación, conversaciones resueltas e historial lineal; no se permite force push ni borrarla.
+- Toda funcionalidad nueva se desarrolla en una rama nueva. Al integrar el pull request, GitHub borra la rama remota automáticamente; la local la limpia `/tarjeta-cerrar`.
 - Una rama por tarjeta, que sale de `main`: `tipo/NN-descripcion-corta` (tipos: feat, fix, refactor, test, docs, chore).
 - Conventional Commits: `tipo(módulo): descripción en presente`, con `Refs: #NN, RF-xx` en el cuerpo.
 - Un commit, una intención. No mezcles reformateo con cambios de lógica.
