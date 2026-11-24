@@ -50,7 +50,7 @@ Sale de la sección 3 de `docs/requisitos.md`:
 | Permiso | ADMIN | PROPIETARIO | CLIENTE |
 | --- | :-: | :-: | :-: |
 | `ver_usuarios`, `validar_usuarios` | ✓ | | |
-| `gestionar_categorias` | ✓ | | |
+| `gestionar_categorias`, `gestionar_carreras` | ✓ | | |
 | `moderar_herramientas` | ✓ | | |
 | `publicar_herramientas` | | ✓ | |
 | `gestionar_solicitudes` (confirmar, rechazar, entregar, devolver) | | ✓ | |

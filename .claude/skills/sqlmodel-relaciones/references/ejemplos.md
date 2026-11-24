@@ -37,6 +37,8 @@ class EstadoHerramienta(str, Enum):
 class HerramientaBase(SQLModel):
     nombre: str = Field(index=True, max_length=80)
     descripcion: str = Field(max_length=1000)
+    # Texto libre: la propuesta dice "carreras o materias"; las carreras son N-N, las materias no merecen tabla.
+    materias: str | None = Field(default=None, max_length=200)
     categoria_id: int = Field(foreign_key="categoria.id", index=True)
     conservacion: Conservacion
     precio_dia: Decimal = Field(max_digits=10, decimal_places=2, gt=0)

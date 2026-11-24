@@ -1,6 +1,6 @@
 # Herramientas Ya: documento de requisitos
 
-Versión 0.1 (borrador para revisar en grupo) · Programación IV, UTN TUP 2026
+Versión 0.2 (alineada con la propuesta enviada a la cátedra, [`propuesta.txt`](propuesta.txt)) · Programación IV, UTN TUP 2026
 
 Este documento define qué hace el sistema, con qué reglas y cómo se construye. Es la base para armar las tarjetas del tablero: cada requisito (`RF-xx`, `RN-xx`, `RNF-xx`) debería terminar en una o más tarjetas.
 
@@ -15,11 +15,11 @@ Este documento define qué hace el sistema, con qué reglas y cómo se construye
 - Búsqueda con filtros y disponibilidad por fechas.
 - Alquileres con ciclo de vida, cálculo de costo, depósito y recargo por atraso.
 - Calificaciones mutuas e historial.
-- Moderación por parte del administrador.
+- Validación de usuarios (estudiantes o egresados, por carrera y legajo), gestión de categorías y carreras, y moderación por parte del administrador.
 
 **Fuera del alcance**
 
-- Pagos: el sistema registra montos, pero el cobro se acuerda entre las partes. No hay pasarela de pagos.
+- Pagos: el sistema registra montos y depósitos, pero el cobro se acuerda entre las partes por fuera de la plataforma. No hay pasarela de pagos.
 - Mapas, geolocalización y envíos: la entrega y la devolución se acuerdan entre las partes (por ejemplo, en la facultad).
 - Chat entre usuarios y notificaciones por mail o push.
 - Aplicación móvil nativa: el frontend es web y responsive.
@@ -64,6 +64,7 @@ Un usuario puede tener varios roles a la vez. Al registrarse elige **PROPIETARIO
 | Calificar al otro en un alquiler finalizado | | ✓ | ✓ |
 | Validar o suspender usuarios | ✓ | | |
 | Gestionar categorías | ✓ | | |
+| Gestionar carreras | ✓ | | |
 | Ocultar publicaciones | ✓ | | |
 
 Además de los permisos por rol, el backend verifica la **propiedad** del recurso: un propietario solo confirma alquileres de sus herramientas y un cliente solo cancela sus propias solicitudes (ver `RNF-03`).
@@ -75,16 +76,17 @@ Además de los permisos por rol, el backend verifica la **propiedad** del recurs
 - **RF-01 Registro.** Nombre, apellido, email único, contraseña (mínimo 8 caracteres), teléfono, carrera (de una lista), legajo y rol o roles elegidos. El usuario queda en estado `PENDIENTE`.
 - **RF-02 Inicio de sesión.** Con email y contraseña. Devuelve un JWT con vencimiento. Un usuario `SUSPENDIDO` no puede entrar.
 - **RF-03 Perfil.** Ver y editar sus datos, ver su reputación y sumar el rol que no tenga.
-- **RF-04 Validación de usuarios.** El ADMIN lista los usuarios pendientes y, después de verificar carrera y legajo, los valida o rechaza. Un usuario `PENDIENTE` puede entrar y buscar, pero no publicar ni alquilar.
+- **RF-04 Validación de usuarios.** El ADMIN lista los usuarios pendientes y, después de verificar con la carrera y el legajo que sean estudiantes o egresados, los valida o rechaza. Un usuario `PENDIENTE` puede entrar y buscar, pero no publicar ni alquilar.
 - **RF-05 Suspensión.** El ADMIN suspende o reactiva usuarios, indicando el motivo.
 
-### Categorías
+### Categorías y carreras
 
 - **RF-06 ABM de categorías.** Solo el ADMIN. No se puede borrar una categoría con herramientas asociadas.
+- **RF-24 ABM de carreras.** Solo el ADMIN. Se cargan unas carreras iniciales (seed) y el ADMIN agrega o edita las que falten. No se puede borrar una carrera con usuarios o herramientas asociadas.
 
 ### Herramientas
 
-- **RF-07 Publicar.** Nombre, descripción, categoría, carreras en las que se usa (una o más), estado de conservación (`NUEVA`, `MUY_BUENA`, `BUENA`, `CON_DETALLES`), precio por día y depósito en garantía.
+- **RF-07 Publicar.** Nombre, descripción, categoría, carreras en las que se usa (una o más), materias para las que sirve (texto libre opcional, por ejemplo «Electrónica I, Taller de soldadura»), estado de conservación (`NUEVA`, `MUY_BUENA`, `BUENA`, `CON_DETALLES`), precio por día y depósito en garantía.
 - **RF-08 Fotos.** De 1 a 3 fotos por herramienta, con las validaciones de `RNF-04`.
 - **RF-09 Editar y cambiar estado.** El propietario edita su herramienta y la pasa a `ACTIVA`, `INACTIVA` o `FUERA_DE_SERVICIO`.
 - **RF-10 Baja.** Lógica (pasa a `INACTIVA`), nunca física, para no perder el historial.
@@ -92,8 +94,8 @@ Además de los permisos por rol, el backend verifica la **propiedad** del recurs
 
 ### Búsqueda
 
-- **RF-12 Catálogo.** Lista paginada de herramientas `ACTIVA` de usuarios validados, con foto, precio por día, carreras y reputación del propietario.
-- **RF-13 Filtros.** Por categoría, rango de precio, palabra clave (nombre o descripción), carrera y disponibilidad entre dos fechas. Los filtros se combinan.
+- **RF-12 Catálogo.** Lista paginada de herramientas `ACTIVA` de usuarios validados, con foto, precio por día, carreras, materias y reputación del propietario.
+- **RF-13 Filtros.** Por categoría, rango de precio, palabra clave (nombre, descripción o materias), carrera y disponibilidad entre dos fechas (por ejemplo, la semana de una entrega). Los filtros se combinan.
 - **RF-14 Detalle.** Datos completos, fotos, calendario de fechas ocupadas, reputación y últimas reseñas del propietario.
 
 ### Alquileres
@@ -166,9 +168,9 @@ usuario ──< usuario_rol >── rol ──< rol_permiso >── permiso
 | `usuario` | id, nombre, apellido, email (único), password_hash, telefono, carrera_id, legajo, estado (`PENDIENTE`, `VALIDADO`, `SUSPENDIDO`), creado_en |
 | `rol`, `permiso` y las tablas intermedias | como en la cátedra: un rol tiene permisos y un usuario tiene roles |
 | `categoria` | id, nombre (único), descripcion |
-| `carrera` | id, nombre (único). Lista fija cargada al iniciar (seed) |
+| `carrera` | id, nombre (único). Carga inicial por seed; después la gestiona el ADMIN (`RF-24`) |
 | `herramienta_carrera` | herramienta_id, carrera_id. Relación N-N, como `usuario_rol` en la cátedra |
-| `herramienta` | id, propietario_id, categoria_id, nombre, descripcion, conservacion, precio_dia, deposito, estado, oculta, motivo_oculta, creado_en |
+| `herramienta` | id, propietario_id, categoria_id, nombre, descripcion, materias (opcional), conservacion, precio_dia, deposito, estado, oculta, motivo_oculta, creado_en |
 | `foto_herramienta` | id, herramienta_id, archivo, orden |
 | `alquiler` | id, herramienta_id, cliente_id, fecha_inicio, fecha_fin, dias, precio_dia, costo, deposito, estado, fecha_devolucion, dias_atraso, recargo, deposito_devuelto, deuda, creado_en |
 | `historial_estado_alquiler` | id, alquiler_id, estado_anterior, estado_nuevo, usuario_id, fecha |
@@ -187,7 +189,7 @@ Todas las rutas, salvo registro, login y catálogo público, requieren `Authoriz
 | `GET /me`, `PATCH /me` | Ver y editar mi perfil | autenticado |
 | `GET /users?estado=PENDIENTE` | Listar usuarios | ADMIN |
 | `PATCH /users/{id}/estado` | Validar, suspender o reactivar | ADMIN |
-| `GET /carreras` | Lista de carreras | público |
+| `GET /carreras`, `POST`, `PATCH`, `DELETE /carreras/{id}` | Carreras | lectura pública, escritura ADMIN |
 | `GET /categorias`, `POST`, `PATCH`, `DELETE /categorias/{id}` | Categorías | lectura pública, escritura ADMIN |
 | `GET /herramientas?categoria=&min=&max=&q=&carrera=&desde=&hasta=&page=` | Catálogo con filtros | público |
 | `GET /herramientas/{id}` | Detalle con fechas ocupadas | público |
@@ -217,7 +219,7 @@ Los errores siguen el formato de FastAPI (`{"detail": "..."}`) con códigos cohe
 | Mis alquileres: estado, cancelar y calificar | CLIENTE |
 | Perfil y reputación | todos |
 | Historial e ingresos | PROPIETARIO y CLIENTE |
-| Panel de administración: usuarios pendientes, suspensiones, categorías y moderación | ADMIN |
+| Panel de administración: usuarios pendientes, suspensiones, categorías, carreras y moderación | ADMIN |
 
 La interfaz muestra u oculta acciones según los permisos del usuario. Es solo experiencia de usuario: el control real lo hace la API (`RNF-03`).
 
@@ -269,7 +271,7 @@ Son decisiones de detalle que tomé para poder escribir el documento. Cualquiera
 1. Recargo por atraso igual al precio por día por cada día de atraso (`RN-07`).
 2. Máximo 30 días por alquiler (`RN-03`).
 3. Calificación de 1 a 5 estrellas, sin plazo para calificar (`RF-20`).
-4. Carrera elegida de una lista fija (seed); el legajo se guarda como texto y el ADMIN lo verifica a mano.
+4. Carrera elegida de la lista que mantiene el ADMIN (con un seed inicial); el legajo se guarda como texto y el ADMIN lo verifica a mano. Las materias son texto libre en cada herramienta, no una tabla.
 5. Un usuario `PENDIENTE` puede navegar y buscar, pero no operar (`RF-04`).
 6. React Router para la navegación del frontend, como en el paso 9 de la guía de React de la cátedra.
 7. Las fotos se suben en un paso aparte de la publicación: primero se crea la herramienta y después se le agregan fotos.
@@ -277,5 +279,5 @@ Son decisiones de detalle que tomé para poder escribir el documento. Cualquiera
 ## 12. Próximos pasos
 
 1. Revisar este documento en grupo y cerrar los supuestos del punto 11.
-2. ~~Crear las tarjetas a partir de los `RF`, `RN` y `RNF`~~ (issues #3 a #50) y cargarlas en el GitHub Project con `node scripts/crear-tablero.mjs`.
+2. ~~Crear las tarjetas a partir de los `RF`, `RN` y `RNF` y cargarlas en el GitHub Project~~ (issues #3 a #50, [Project «Herramientas Ya»](https://github.com/users/Alanv3514/projects/2)).
 3. Primera iteración: estructura del monorepo, Docker Compose, CI, modelo de datos y autenticación.
