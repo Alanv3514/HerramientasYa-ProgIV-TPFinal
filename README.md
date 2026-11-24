@@ -1,8 +1,8 @@
 # Herramientas Ya
 
-Sistema de gestión de alquiler de herramientas entre vecinos. Proyecto final de Programación IV (UTN, Tecnicatura Universitaria en Programación, 2026).
+Sistema de gestión de alquiler de herramientas para prácticas de estudiantes. Proyecto final de Programación IV (UTN, Tecnicatura Universitaria en Programación, 2026).
 
-Los vecinos publican las herramientas que usan poco (taladros, escaleras, hidrolavadoras, carpas) para alquilarlas por día, y quien las necesita las alquila a menor costo que comprarlas. El sistema gestiona las publicaciones, las reservas por fecha, el cálculo del costo y el registro de cada operación.
+Estudiantes y egresados publican las herramientas y equipos que ya no usan (multímetros, soldadores, osciloscopios, kits de Arduino, calibres) para alquilarlos por día, y quien los necesita para un trabajo práctico los alquila a menor costo que comprarlos. El sistema gestiona las publicaciones, las reservas por fecha, el cálculo del costo y el registro de cada operación.
 
 ## Integrantes
 
@@ -14,6 +14,13 @@ Los vecinos publican las herramientas que usan poco (taladros, escaleras, hidrol
 ## Propuesta
 
 La propuesta enviada a la cátedra está en [`docs/propuesta.txt`](docs/propuesta.txt): problema que resuelve, usuarios, funcionalidades principales y reglas de negocio.
+
+El detalle técnico (requisitos, reglas de negocio, modelo de datos, API, pantallas y gestión) está en [`docs/requisitos.md`](docs/requisitos.md).
+
+## Cómo trabajamos
+
+- Tablero: GitHub Project «Herramientas Ya». Cada tarjeta es un issue; la guía está fijada en el issue #1 y en [`docs/gestion/como-trabajamos.md`](docs/gestion/como-trabajamos.md).
+- Claude Code: [`CLAUDE.md`](CLAUDE.md) y las skills de [`.claude/skills/`](.claude/skills/). Hay una por cada tecnología que dio la cátedra y otras para el ciclo de cada tarjeta.
 
 ## Tecnologías
 
