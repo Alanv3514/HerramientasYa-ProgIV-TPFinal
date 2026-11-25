@@ -2,6 +2,9 @@ import os
 
 from sqlmodel import Session, SQLModel, create_engine
 
+from model import usuarios  # noqa: F401  # Registra las tablas antes de create_all.
+from repositories.seed import seed_roles_y_permisos
+
 # DB_ENGINE selecciona la base al iniciar: "sqlite" (por defecto) o "postgresql".
 DB_ENGINE = os.getenv("DB_ENGINE", "sqlite").lower()
 
@@ -20,6 +23,8 @@ else:
 
 def create_db_and_tables():
     SQLModel.metadata.create_all(engine)
+    with Session(engine) as session:
+        seed_roles_y_permisos(session)
 
 
 def get_session():
