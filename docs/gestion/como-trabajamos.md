@@ -38,7 +38,7 @@ El Gantt con el plan de cada persona y los supuestos de horas está en [cronogra
 
 1. **Todo trabajo es una tarjeta.** Si aparece algo nuevo (un bug, una mejora), se crea con `/tarjeta-nueva` o duplicando la plantilla (#2). No se hace "de paso" en otra rama.
 2. **Una tarjeta, una rama, un pull request.** Rama `tipo/NN-descripcion-corta`, que sale de `main` actualizada. Nadie trabaja sobre `main`: está protegida y solo recibe pull requests (1 aprobación, sin push directo ni force push, ni siquiera del admin). Al integrar, la rama se borra sola.
-   - **Única excepción: las tarjetas de estructura #4 a #8.** Son las bases sobre las que trabaja el resto, así que Alan las integra sin esperar la aprobación, para no frenar a los demás. La #3 (estructura del monorepo) va en el mismo PR que la #4 (`Closes #3` y `Closes #4`).
+   - **Única excepción: las tarjetas de estructura #4 a #8.** Son las bases sobre las que trabaja el resto, así que Alan las integra sin esperar la aprobación, para no frenar a los demás. La #3 (estructura del monorepo) va en el mismo PR que la #4 (`Closes #3` y `Closes #4`). El PR #51 (documentación, tablero y skills) también entró por esta excepción, el 25/11.
    - Mientras duran, la protección de `main` no se aplica al admin (`enforce_admins` desactivado), y el resto del equipo sigue necesitando 1 aprobación.
    - Igual se abre el pull request, con la prueba de integración (regla 5), y el equipo puede revisarlo después del merge.
    - La tarjeta #8 cierra la excepción: vuelve a activar `enforce_admins` y suma el CI como check obligatorio.

@@ -1,0 +1,17 @@
+[project]
+name = "herramientas-ya-backend"
+version = "0.1.0"
+requires-python = ">=3.12"
+
+[tool.ruff]
+line-length = 120
+extend-exclude = [".venv"]
+
+[tool.ruff.lint]
+# Las reglas de la cátedra: errores de estilo (E), errores lógicos (F) y orden de imports (I)
+select = ["E", "F", "I"]
+
+[tool.pytest.ini_options]
+# Permite `import main` desde los tests sin instalar el paquete
+pythonpath = ["."]
+testpaths = ["tests"]
