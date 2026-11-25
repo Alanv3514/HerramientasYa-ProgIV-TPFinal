@@ -1,0 +1,33 @@
+# Secretos: solo se sube el .env.example (RNF-02)
+.env
+.env.*
+!.env.example
+
+# Python
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# Bases SQLite locales (los tests usan memoria)
+*.db
+
+# Fotos subidas por los usuarios (en Docker van al volumen `fotos`)
+backend/fotos/
+
+# Frontend
+node_modules/
+dist/
+
+# Editores y sistema operativo
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Claude Code: la configuración personal no se comparte
+.claude/settings.local.json
