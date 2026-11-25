@@ -8,23 +8,23 @@ INTEGRANTES
 - Vinzón, Eric Alan
 
 NOMBRE DEL SISTEMA
-Herramientas Ya - Sistema de gestión de alquiler de herramientas entre vecinos
+Herramientas Ya - Sistema de gestión de alquiler de herramientas para prácticas de estudiantes
 
 TEMÁTICA Y DESCRIPCIÓN
 
 Problema que resuelve:
-Muchas personas compran herramientas y equipos que usan pocas veces al año (taladros, escaleras, hidrolavadoras, carpas, etc.), mientras que otras necesitan ese mismo objeto por unos días y no tienen dónde conseguirlo sin comprarlo. "Herramientas Ya" permite que los dueños publiquen sus herramientas para alquilarlas por día y obtengan un ingreso, y que quien las necesite las alquile a menor costo que comprarlas. El sistema gestiona la publicación, las reservas por fecha, el cálculo del costo del alquiler y el registro de cada operación. El sistema registra montos y depósitos, pero el cobro se acuerda entre las partes por fuera de la plataforma; no incluye pasarela de pagos.
+Los estudiantes de carreras técnicas (electrónica, mecánica, electricidad, programación, diseño industrial, arquitectura, etc.) necesitan herramientas y equipos para sus trabajos prácticos: multímetros, soldadores, osciloscopios, kits de Arduino, calibres, taladros, etc. Muchos los usan solo durante una materia o una entrega puntual, y comprarlos es caro. Al mismo tiempo, otros estudiantes y egresados ya tienen esos equipos guardados y sin uso. "Herramientas Ya" permite que quienes tienen herramientas las publiquen para alquilarlas por día a otros estudiantes y obtengan un ingreso, y que quien las necesita para una práctica las alquile a menor costo que comprarlas. El sistema gestiona la publicación, las reservas por fecha, el cálculo del costo del alquiler y el registro de cada operación. El sistema registra montos y depósitos, pero el cobro y la entrega se acuerdan entre las partes por fuera de la plataforma (por ejemplo, en la facultad); no incluye pasarela de pagos.
 
 Usuarios:
-- ADMIN: valida a los usuarios registrados, gestiona las categorías y modera publicaciones o usuarios con mal comportamiento.
-- PROPIETARIO: publica sus herramientas con precio por día, acepta o rechaza solicitudes de alquiler y confirma la entrega y la devolución.
-- CLIENTE: busca herramientas disponibles, solicita alquileres por rango de fechas y consulta su historial.
+- ADMIN: valida que los usuarios registrados sean estudiantes o egresados (carrera y legajo), gestiona las categorías y las carreras, y modera publicaciones o usuarios con mal comportamiento.
+- PROPIETARIO: publica sus herramientas con precio por día, indica para qué carreras o materias sirven, acepta o rechaza solicitudes de alquiler y confirma la entrega y la devolución.
+- CLIENTE: estudiante que busca herramientas disponibles para su práctica, solicita alquileres por rango de fechas y consulta su historial.
 (Un mismo usuario puede actuar como propietario y como cliente.)
 
 Funcionalidades principales:
-1. Registro e inicio de sesión con roles.
-2. Catálogo de herramientas: nombre, descripción, categoría, estado de conservación, precio por día y monto de depósito en garantía.
-3. Búsqueda y filtrado por categoría, rango de precio, palabra clave y disponibilidad en las fechas buscadas.
+1. Registro e inicio de sesión con roles; el registro pide carrera y legajo, y el usuario queda pendiente hasta que el ADMIN lo valida.
+2. Catálogo de herramientas: nombre, descripción, categoría, carreras o materias en las que se usa, estado de conservación, precio por día y monto de depósito en garantía.
+3. Búsqueda y filtrado por categoría, carrera, rango de precio, palabra clave y disponibilidad en las fechas buscadas (por ejemplo, la semana de una entrega).
 4. Solicitud de alquiler con fecha de inicio y fecha de fin; el sistema calcula el costo total (días x precio por día) más el depósito en garantía.
 5. Ciclo de vida del alquiler: SOLICITADO -> CONFIRMADO -> EN CURSO -> FINALIZADO, con posibilidad de RECHAZADO o CANCELADO. Cada cambio de estado lo realiza el usuario que corresponde (el propietario confirma/rechaza y registra entrega y devolución; el cliente puede cancelar antes de retirar la herramienta).
 6. Control de disponibilidad: el sistema impide reservar una herramienta en un rango de fechas que se superponga con otro alquiler confirmado o en curso.
@@ -33,6 +33,7 @@ Funcionalidades principales:
 9. Historial de alquileres por herramienta, por propietario (ingresos generados) y por cliente.
 
 Reglas de negocio destacadas:
+- Solo los usuarios validados por el ADMIN pueden publicar o alquilar herramientas.
 - Un usuario no puede alquilar su propia herramienta.
 - No se puede alquilar una herramienta inactiva o fuera de servicio.
 - No se aceptan reservas con fechas superpuestas para la misma herramienta.
