@@ -1,0 +1,5 @@
+# node_modules se instala dentro de la imagen (npm ci) y dist se genera ahí.
+# .env*: la URL de la API llega como argumento de build.
+node_modules
+dist
+.env*
