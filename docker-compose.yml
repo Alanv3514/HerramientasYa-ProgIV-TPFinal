@@ -1,0 +1,43 @@
+# Un solo `docker compose up --build` levanta la base, la API y el frontend (sección 2 de los requisitos).
+# Las credenciales y la clave del JWT salen del .env de la raíz, que no se sube (RNF-02).
+services:
+  db:
+    image: postgres:16
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+    # Sin puerto publicado: la API llega por la red interna de Compose (host "db") y así no choca
+    # con un Postgres instalado en la máquina. Para consultar: docker compose exec db psql -U herramientas
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}"]
+      interval: 5s
+      retries: 10
+
+  api:
+    build: ./backend
+    env_file: .env
+    ports:
+      - "8000:8000"
+    volumes:
+      - fotos:/app/fotos
+    depends_on:
+      db:
+        condition: service_healthy # sin esto, la API arranca antes que Postgres y no conecta
+
+  web:
+    build:
+      context: ./frontend
+      args:
+        # Vite pone la URL de la API dentro del build: es la que usa el navegador, por eso es localhost.
+        VITE_API_URL: ${VITE_API_URL}
+    ports:
+      - "5174:80" # mismo puerto que en desarrollo, el que acepta CORS_ORIGIN
+    depends_on:
+      - api
+
+volumes:
+  pgdata:
+  fotos:

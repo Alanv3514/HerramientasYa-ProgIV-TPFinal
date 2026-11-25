@@ -1,0 +1,13 @@
+# Lo que no entra en la imagen: entornos, cachés, bases locales, secretos y tests.
+.venv
+venv
+__pycache__
+*.py[cod]
+.pytest_cache
+.ruff_cache
+.coverage
+htmlcov
+*.db
+.env
+fotos
+tests

@@ -27,6 +27,27 @@ La propuesta enviada a la cátedra está en [`docs/propuesta.txt`](docs/propuest
 
 El detalle técnico (requisitos, reglas de negocio, modelo de datos, API, pantallas y gestión) está en [`docs/requisitos.md`](docs/requisitos.md).
 
+## Cómo se levanta
+
+Con [Docker Desktop](https://www.docker.com/products/docker-desktop/) abierto, desde la raíz del repo:
+
+```bash
+cp .env.example .env
+# Completá JWT_SECRET_KEY en .env con una clave larga, por ejemplo:
+#   python -c "import secrets; print(secrets.token_hex(32))"
+docker compose up --build
+```
+
+| Servicio | Qué es | Dirección |
+| --- | --- | --- |
+| `web` | Frontend (build de Vite servido con nginx) | <http://localhost:5174> |
+| `api` | Backend FastAPI | <http://localhost:8000/docs> |
+| `db` | PostgreSQL 16 | Solo dentro de Docker: `docker compose exec db psql -U herramientas` |
+
+- **Apagar:** `docker compose down`. Los datos quedan en el volumen `pgdata`.
+- **Empezar con la base vacía:** `docker compose down -v`. Hace falta cuando una tarjeta cambia columnas de una tabla que ya existe, porque las tablas se crean al iniciar pero no se modifican.
+- **Desarrollar sin Docker:** ver [`backend/README.md`](backend/README.md) y [`frontend/README.md`](frontend/README.md).
+
 ## Cómo trabajamos
 
 - Tablero: GitHub Project «Herramientas Ya». Cada tarjeta es un issue; la guía está fijada en el issue #1 y en [`docs/gestion/como-trabajamos.md`](docs/gestion/como-trabajamos.md).

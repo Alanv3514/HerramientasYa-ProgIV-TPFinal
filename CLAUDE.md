@@ -26,9 +26,7 @@ Seguimos la forma en que la cátedra enseñó cada tecnología. Cada una tiene s
 
 ## Comandos
 
-Se completan con las tarjetas de estructura (iteración 1). Hasta entonces son los previstos:
-
-- Todo junto: `docker compose up --build`.
+- Todo junto (desde la raíz, con `.env` copiado de `.env.example` y la clave completa): `docker compose up --build`. Web en 5174, API en 8000. `docker compose down -v` borra la base.
 - Backend (desde `backend/`, con el `.venv` activo): `uvicorn main:app --reload`.
 - Tests: `pytest --cov=services --cov=api --cov=repositories --cov-report=term-missing`.
 - Lint backend: `ruff check .`.

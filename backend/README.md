@@ -34,3 +34,5 @@ ruff check .
 ```
 
 `GET /health` responde `{"status": "ok"}` cuando la API está arriba.
+
+Con Docker (`docker compose up --build` desde la raíz) la API usa PostgreSQL. El puerto de la base no se publica, así que fuera de Docker se desarrolla con SQLite. Antes de entregar, la prueba de integración se hace con Docker, contra PostgreSQL.
