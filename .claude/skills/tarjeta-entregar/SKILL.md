@@ -82,7 +82,7 @@ allowed-tools: Bash(git status *) Bash(git log *) Bash(git diff *) Bash(git fetc
 9. **Con la confirmación:**
    - `git push -u origin <rama>`.
    - `gh pr create --title "..." --body-file <archivo>` (escribí el cuerpo en un archivo temporal para no romper el formato).
-   - Pedí revisión a alguien de la otra capa: `gh pr edit --add-reviewer <usuario>`. Equipo: FefeSaenz (frontend), santiansaa (backend), almaranteManuel y Alanv3514 (fullstack).
+   - Pedí la aprobación a un compañero (cualquiera): `gh pr edit --add-reviewer <usuario>`. Equipo: FefeSaenz (frontend), santiansaa (backend), almaranteManuel y Alanv3514 (fullstack). La aprobación es obligatoria; revisar el código antes de aprobar queda a criterio de quien aprueba (regla 4).
    - `node scripts/tablero.mjs mover NN "En revisión"`.
 
-10. **Recordá al usuario** que espere el CI en verde y la aprobación, y que integre con **squash merge**. Si `main` avanzó mientras el PR esperaba la revisión, hay que volver a rebasar y repetir los pasos 4 y 5 antes del merge. Después del merge: `/tarjeta-cerrar NN`.
+10. **Recordá al usuario** que espere el CI en verde y la aprobación, y que integre con **squash merge**. Si `main` avanzó mientras el PR esperaba la aprobación, hay que volver a rebasar y repetir los pasos 4 y 5 antes del merge. Después del merge: `/tarjeta-cerrar NN`.

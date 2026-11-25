@@ -51,14 +51,14 @@ El Gantt con el plan de cada persona y los supuestos de horas está en [cronogra
    - **Tuyas:** se hacen en orden.
    - Si el contrato no alcanza o hay que cambiarlo, se avisa en el grupo antes de cambiarlo, nunca en silencio.
    - Si una tarjeta queda trabada igual, lleva la etiqueta `bloqueada` y un comentario con el motivo.
-4. **Revisión cruzada.** Cada PR lo revisa alguien de la otra capa: backend revisa frontend y al revés. Así todos conocen todo el sistema para la defensa.
+4. **Aprobación obligatoria.** Cada PR necesita la aprobación de un compañero para integrarse (la protección de `main` lo exige). No se obliga a revisar el código: si quien aprueba lo leyó o no, es responsabilidad suya. Igual conviene mirarlo, porque en la defensa preguntan por todo el sistema.
 5. **Prueba de integración antes del PR.** Antes de abrir el pull request, quien entrega comprueba que el proyecto no se rompe después del merge (`/tarjeta-entregar` lo guía):
    1. Rebasa la rama sobre `origin/main` actualizada.
    2. Corre **toda** la suite del backend, incluido el test de humo `tests/api/test_humo.py`, que recorre el flujo principal de punta a punta. También corre el lint y el build del frontend.
    3. Levanta todo con `docker compose up --build`.
    4. Ingresa con un usuario del seed y recorre el flujo principal hasta donde exista. Después revisa lo que tocó la tarjeta.
 
-   Si algo falla, aunque sea de otra tarjeta, no se abre el PR y se avisa en el grupo. Si `main` avanzó mientras el PR esperaba la revisión, se repite la prueba antes del merge.
+   Si algo falla, aunque sea de otra tarjeta, no se abre el PR y se avisa en el grupo. Si `main` avanzó mientras el PR esperaba la aprobación, se repite la prueba antes del merge.
 6. **CI en verde** para integrar: tests, lint y build. Se integra con squash merge.
 7. **Commits:**
    - Formato `tipo(módulo): descripción en presente`, con `Refs: #NN, RF-xx` en el cuerpo.
