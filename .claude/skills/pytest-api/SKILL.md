@@ -21,7 +21,7 @@ backend/
 ├── pyproject.toml        [tool.pytest.ini_options] pythonpath = ["."]
 └── tests/
     ├── conftest.py       session, client, seed y headers por rol
-    ├── api/              integración, uno por router
+    ├── api/              integración, uno por router, más test_humo.py (flujo completo)
     └── services/         unitarios de reglas y de JWTService
 ```
 
@@ -42,6 +42,23 @@ backend/
    - body inválido → 422, y la regla de negocio violada → 400 o 409.
 4. **Corré**: `pytest -x` mientras desarrollás, y `pytest --cov=services --cov=api --cov=repositories --cov-report=term-missing` antes de entregar.
 5. **Comprobá que el test sirve**, como en el ejercicio 7 de la guía: rompé a propósito el código (cambiá un `<=` por `<`) y fijate que el test falla.
+
+## Test de humo (`tests/api/test_humo.py`)
+
+Es el test de integración que se corre antes de cada pull request (`/tarjeta-entregar`). Responde una sola pregunta: después de este merge, ¿el sistema sigue funcionando de punta a punta?
+
+- Es **un solo test** que recorre el flujo principal como lo haría un usuario:
+  1. registro de un propietario y de un cliente;
+  2. login de los dos y `GET /me`;
+  3. publicar una herramienta;
+  4. buscarla en el catálogo;
+  5. solicitar el alquiler;
+  6. confirmar, entregar y devolver;
+  7. calificar;
+  8. ver el historial.
+- **Crece con el proyecto.** La tarjeta que agrega un paso de ese flujo lo suma al final del test. Mientras un paso no exista, el test termina antes.
+- Cada paso verifica el código HTTP y el dato que usa el paso siguiente (el `id` de la herramienta, el del alquiler). No repite los casos de error: esos están en los tests de cada router.
+- Usa las mismas fixtures de `conftest.py` (SQLite en memoria). Si falla y los tests de la tarjeta pasan, el problema es la integración con lo que ya estaba en `main`.
 
 ## Reglas de la cátedra que respetamos
 

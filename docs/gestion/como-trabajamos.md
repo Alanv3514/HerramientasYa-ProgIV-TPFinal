@@ -48,12 +48,19 @@ El Gantt con el plan de cada persona y los supuestos de horas está en [cronogra
    - Si el contrato no alcanza o hay que cambiarlo, se avisa en el grupo antes de cambiarlo, nunca en silencio.
    - Si una tarjeta queda trabada igual, lleva la etiqueta `bloqueada` y un comentario con el motivo.
 4. **Revisión cruzada.** Cada PR lo revisa alguien de la otra capa: backend revisa frontend y al revés. Así todos conocen todo el sistema para la defensa.
-5. **CI en verde** para integrar: tests, lint y build. Se integra con squash merge.
-6. **Commits:**
+5. **Prueba de integración antes del PR.** Antes de abrir el pull request, quien entrega comprueba que el proyecto no se rompe después del merge (`/tarjeta-entregar` lo guía):
+   1. Rebasa la rama sobre `origin/main` actualizada.
+   2. Corre **toda** la suite del backend, incluido el test de humo `tests/api/test_humo.py`, que recorre el flujo principal de punta a punta. También corre el lint y el build del frontend.
+   3. Levanta todo con `docker compose up --build`.
+   4. Ingresa con un usuario del seed y recorre el flujo principal hasta donde exista. Después revisa lo que tocó la tarjeta.
+
+   Si algo falla, aunque sea de otra tarjeta, no se abre el PR y se avisa en el grupo. Si `main` avanzó mientras el PR esperaba la revisión, se repite la prueba antes del merge.
+6. **CI en verde** para integrar: tests, lint y build. Se integra con squash merge.
+7. **Commits:**
    - Formato `tipo(módulo): descripción en presente`, con `Refs: #NN, RF-xx` en el cuerpo.
    - Sin coautoría de herramientas de IA.
-7. **Fuente de verdad:** `docs/requisitos.md`. Si una tarjeta lo contradice, manda el documento. Si el documento no cubre un caso, se pregunta en el grupo antes de inventar.
-8. **Uso de IA:** cada uno puede usar Claude Code con las skills del repo (`.claude/skills/`). El código generado se revisa y se entiende antes de commitearlo: en la mesa la nota es individual.
+8. **Fuente de verdad:** `docs/requisitos.md`. Si una tarjeta lo contradice, manda el documento. Si el documento no cubre un caso, se pregunta en el grupo antes de inventar.
+9. **Uso de IA:** cada uno puede usar Claude Code con las skills del repo (`.claude/skills/`). El código generado se revisa y se entiende antes de commitearlo: en la mesa la nota es individual.
 
 ## Flujo con Claude Code
 
@@ -71,9 +78,9 @@ Sin Claude Code, el flujo es el mismo a mano. `node scripts/tablero.mjs` muestra
 ## Definición de Hecho
 
 1. Cumple todos los criterios de aceptación.
-2. Tiene tests y todos pasan, junto con el lint y el build.
+2. Tiene tests y pasa toda la suite (incluido el test de humo), junto con el lint y el build.
 3. `docs/` está actualizado si cambió una ruta, una regla o cómo se levanta el sistema.
-4. Funciona con `docker compose up`.
+4. Pasó la prueba de integración: rebasada sobre `main`, funciona con `docker compose up` (regla 5).
 5. Quien la hizo puede explicar el código en la defensa.
 
 ## Configuración inicial (una vez por persona)

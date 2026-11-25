@@ -14,7 +14,8 @@ Dos o tres líneas.
 ## Definición de Hecho
 
 - [ ] Criterios de aceptación cubiertos (tests o prueba manual descrita arriba)
-- [ ] Tests, lint y build en verde
+- [ ] Rama rebasada sobre `main` actualizada
+- [ ] Suite completa, test de humo, lint y build en verde
+- [ ] Prueba de integración con Docker Compose: levanté todo y recorrí el flujo principal (qué recorrí: …)
 - [ ] `docs/` actualizado (o N/A)
-- [ ] Verificado con Docker Compose
 - [ ] Puedo explicar cada cambio en la defensa

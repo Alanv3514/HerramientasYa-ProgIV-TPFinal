@@ -83,9 +83,9 @@ Se completan con las tarjetas de estructura (iteración 1). Hasta entonces son l
 Una tarjeta está terminada cuando:
 
 1. Cumple todos sus criterios de aceptación.
-2. Tiene tests (pytest en el backend) y todos pasan, junto con el lint y el build.
+2. Tiene tests (pytest en el backend) y pasa toda la suite, incluido el test de humo `tests/api/test_humo.py`, junto con el lint y el build.
 3. `docs/` está actualizado si cambió una ruta, una regla o cómo se levanta el sistema.
-4. Funciona levantado con `docker compose up`.
+4. Pasó la prueba de integración antes del PR: rebasada sobre `main`, levantada con `docker compose up` y con el flujo principal recorrido (regla 5 de `docs/gestion/como-trabajamos.md`).
 5. Quien la hizo puede explicar el código en la defensa.
 
 ## Flujo de trabajo con skills
