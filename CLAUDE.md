@@ -57,7 +57,7 @@ Se completan con las tarjetas de estructura (iteración 1). Hasta entonces son l
 - Una rama por tarjeta, que sale de `main`: `tipo/NN-descripcion-corta` (tipos: feat, fix, refactor, test, docs, chore).
 - Conventional Commits: `tipo(módulo): descripción en presente`, con `Refs: #NN, RF-xx` en el cuerpo.
 - Un commit, una intención. No mezcles reformateo con cambios de lógica.
-- Integración por pull request con squash merge, CI en verde y la revisión de un compañero de la otra capa (backend revisa frontend y al revés).
+- Integración por pull request con squash merge, CI en verde y la aprobación de un compañero. La aprobación es obligatoria; revisar el código antes de aprobar queda a criterio de quien aprueba.
 - Sin coautoría de la IA: los commits y los pull requests no llevan líneas `Co-Authored-By` ni firmas de herramientas. El autor es quien entrega la tarjeta.
 - Nunca hagas commit ni push sin mostrar antes el resumen del cambio y recibir confirmación.
 
