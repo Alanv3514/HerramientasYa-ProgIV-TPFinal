@@ -52,7 +52,7 @@ Se completan con las tarjetas de estructura (iteración 1). Hasta entonces son l
 ## Git
 
 - `main` es la única rama fija y está protegida: nadie (ni el admin) commitea ni pushea directo en ella. Solo recibe pull requests de otras ramas, con 1 aprobación, conversaciones resueltas e historial lineal; no se permite force push ni borrarla.
-- Única excepción: los pull requests de las tarjetas de estructura #4 a #8 (la #3 va en el mismo PR que la #4) los integra Alan sin aprobación, con `enforce_admins` desactivado. La #8 lo vuelve a activar. Ver la regla 2 de `docs/gestion/como-trabajamos.md`.
+- Única excepción: los pull requests de las tarjetas de estructura #4 a #8 (la #3 va en el mismo PR que la #4), y el PR #51 de documentación y skills, los integra Alan sin aprobación, con `enforce_admins` desactivado. La #8 lo vuelve a activar. Ver la regla 2 de `docs/gestion/como-trabajamos.md`.
 - Toda funcionalidad nueva se desarrolla en una rama nueva. Al integrar el pull request, GitHub borra la rama remota automáticamente; la local la limpia `/tarjeta-cerrar`.
 - Una rama por tarjeta, que sale de `main`: `tipo/NN-descripcion-corta` (tipos: feat, fix, refactor, test, docs, chore).
 - Conventional Commits: `tipo(módulo): descripción en presente`, con `Refs: #NN, RF-xx` en el cuerpo.
