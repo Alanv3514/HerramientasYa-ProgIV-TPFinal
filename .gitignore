@@ -2,6 +2,8 @@
 .env
 .env.*
 !.env.example
+# Excepción: la URL de la API en desarrollo no es secreta y la necesita cada uno, como en la cátedra
+!frontend/.env.development
 
 # Python
 .venv/
