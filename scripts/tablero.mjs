@@ -154,7 +154,7 @@ function editarCampo(tablero, tarjeta, nombreCampo, valor) {
 
     const args = ["project", "item-edit", "--id", tarjeta.itemId, "--project-id", tablero.id, "--field-id", campo.id];
     if (campo.options) {
-        // Coincidencia exacta o por prefijo: "1" elige "1 · 24/11 al 30/11".
+        // Coincidencia exacta o por prefijo: "1" elige "1 · 25/11 al 30/11".
         const opcion = campo.options.find((o) => o.name.toLowerCase() === valor.toLowerCase())
             ?? campo.options.find((o) => o.name.toLowerCase().startsWith(`${valor.toLowerCase()} `));
         if (!opcion) salir(`"${valor}" no es una opción de ${campo.name}: ${campo.options.map((o) => o.name).join(", ")}.`);

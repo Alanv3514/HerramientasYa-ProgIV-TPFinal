@@ -36,7 +36,14 @@ Seguí estos pasos en orden. No escribas código de la aplicación en esta skill
    - **Límite por persona:** corré `node scripts/tablero.mjs en-curso`. Si ya tenés 2 en curso, avisá que se supera el límite y preguntá si seguir.
    - **Responsable:** si la tarjeta está asignada a otra persona, avisá antes de tomarla.
 
-5. **Validar dependencias.** Para cada «Depende de» que no esté en Hecho, decí cuál es y en qué columna está. No sigas sin confirmación: si empezás antes, tu rama va a necesitar código que todavía no está en `main`.
+5. **Validar dependencias** según la regla 3 de «Cómo trabajamos». Para cada «Depende de» que no esté en Hecho, decí cuál es, en qué columna está y quién la tiene:
+   - **Del esqueleto (#3, #4, #5):** bloquea. No sigas sin confirmación.
+   - **De otra persona:** no bloquea el inicio. En el plan (paso 7), separá:
+     - qué parte se hace ya contra el contrato de `docs/requisitos.md` §6 y §7;
+     - qué parte se integra cuando la dependencia llegue a `main`.
+     
+     La tarjeta no se entrega hasta que la dependencia esté en Hecho.
+   - **Tuya:** terminala primero.
 
 6. **Leer los requisitos.** Abrí `docs/requisitos.md` y leé solo las secciones que referencia la tarjeta (`RF-xx`, `RN-xx`, `RNF-xx`, la sección 7 de la API y la 6 del modelo si aplica). Si algo referenciado figura en la sección 11 («Supuestos a confirmar»), avisalo.
 

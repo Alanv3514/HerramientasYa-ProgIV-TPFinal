@@ -23,13 +23,30 @@ GitHub Project **Herramientas Ya**: <https://github.com/users/Alanv3514/projects
 | Módulo | Base, Usuarios, Categorías, Herramientas, Catálogo, Alquileres, Calificaciones, Historial, Administración, Calidad, Defensa |
 | Prioridad | Alta (imprescindible para aprobar), Media, Baja (si da el tiempo) |
 | Talle | S (hasta 2 h), M (2 a 5 h), L (5 a 8 h). Si es más grande que L, se divide |
-| Iteración | 1 (24/11 al 30/11), 2 (1/12 al 7/12), 3 (8/12 al 14/12) |
+| Iteración | 1 (25/11 al 30/11: estructura, usuarios y herramientas), 2 (1/12 al 6/12: alquileres y pantallas principales), 3 (7/12 al 11/12: administración, calidad y cierre), 4 (12/12 al 16/12: estudio, ensayo y presentación) |
+| Inicio y Fin | Fechas planificadas. Se ven en la vista «Cronograma (Gantt)». Si una tarjeta se atrasa, se corrige el Fin y se avisa en el grupo, porque puede correr las fechas de otras |
+
+### Calendario
+
+- **11/12:** código terminado. Todo integrado a `main`.
+- **12/12 al 15/12:** estudio y ensayo de la defensa (#50).
+- **16/12:** presentación.
+
+El Gantt con el plan de cada persona y los supuestos de horas está en [cronograma.md](cronograma.md). Las tarjetas de prioridad Media y Baja tienen fecha, pero son las primeras que se recortan si hay atraso.
 
 ## Reglas
 
 1. **Todo trabajo es una tarjeta.** Si aparece algo nuevo (un bug, una mejora), se crea con `/tarjeta-nueva` o duplicando la plantilla (#2). No se hace "de paso" en otra rama.
 2. **Una tarjeta, una rama, un pull request.** Rama `tipo/NN-descripcion-corta`, que sale de `main` actualizada. Nadie trabaja sobre `main`: está protegida y solo recibe pull requests (1 aprobación, sin push directo ni force push, ni siquiera del admin). Al integrar, la rama se borra sola.
-3. **Dependencias.** La línea «Depende de» lista los issues que tienen que estar en Hecho antes de empezar. Si una tarjeta queda trabada, lleva la etiqueta `bloqueada` y un comentario con el motivo.
+3. **Dependencias que no bloquean.** La línea «Depende de» lista los issues que tienen que estar en Hecho **para entregar**, no para empezar. Así cada uno sigue su propio flujo sin esperar a los demás:
+   - **Del esqueleto (#3, #4, #5):** son las únicas que bloquean el inicio. Sin ellas no hay dónde escribir código.
+   - **De otra persona:**
+     - Se arranca igual, contra el contrato de `docs/requisitos.md`: el modelo de datos (§6) y la API (§7), con sus rutas, cuerpos y códigos.
+     - En el frontend, se escribe la función de `api/` con su tipo, y la pantalla se prueba cuando el endpoint llega a `main`.
+     - En el backend, primero va la parte propia (reglas, servicio, tests unitarios), y lo que usa código del otro se integra al rebasar.
+   - **Tuyas:** se hacen en orden.
+   - Si el contrato no alcanza o hay que cambiarlo, se avisa en el grupo antes de cambiarlo, nunca en silencio.
+   - Si una tarjeta queda trabada igual, lleva la etiqueta `bloqueada` y un comentario con el motivo.
 4. **Revisión cruzada.** Cada PR lo revisa alguien de la otra capa: backend revisa frontend y al revés. Así todos conocen todo el sistema para la defensa.
 5. **CI en verde** para integrar: tests, lint y build. Se integra con squash merge.
 6. **Commits:**

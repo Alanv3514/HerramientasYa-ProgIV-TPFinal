@@ -31,7 +31,7 @@ const CAMPOS = {
         "Calificaciones", "Historial", "Administración", "Calidad", "Defensa"],
     "Prioridad": ["Alta", "Media", "Baja"],
     "Talle": ["S", "M", "L"],
-    "Iteración": ["1 · 24/11 al 30/11", "2 · 1/12 al 7/12", "3 · 8/12 al 14/12"],
+    "Iteración": ["1 · 25/11 al 30/11", "2 · 1/12 al 6/12", "3 · 7/12 al 11/12", "4 · 12/12 al 16/12"],
 };
 
 const RESPONSABLES = {
